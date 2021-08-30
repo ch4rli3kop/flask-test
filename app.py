@@ -1,5 +1,5 @@
 '''
-TODO: administration 페이지에서 계정의 패스워드를 변경하는 기능 추가
+TODO: 패스워드 해시처리해서 저장하기
 TODO: 장치가 많아질 경우를 대비하여 장치 정보를 이중 형태로 저장해야함
 TODO: 온도 변화 그래프를 보여주기 위해서 DB 추가
 TODO: flask-login으로 로그인 기능 대체하기
@@ -8,6 +8,7 @@ TODO: flask-login으로 로그인 기능 대체하기
 TODO: 데이터 제거 기능 추가
 TODO: 온도 변화 그래프 보여주기
 TODO: 현재 온도 보여주기
+TODO: administration 페이지에서 계정의 패스워드를 변경하는 기능 추가
 '''
 
 
@@ -106,6 +107,11 @@ def administration():
 
     return render_template('administration.html')
 
+
+@app.errorhandler(404)
+def page_not_found(error):
+    app.logger.error(error)
+    return '페이지를 찾을 수 없습니다.'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
