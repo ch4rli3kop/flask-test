@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../static/login.css">
+    <title>Login</title>
 </head>
+
 <body>
-    This is login page
-    <form action="" method="POST">
-        <p>ID : <input type="text" name="username"></p>
-        <p>PW : <input type="password" name="password"></p>
-        <input type="submit" value="Login">
-    </form>
     {%with messages = get_flashed_messages()%}
     {%if messages %}
-      <script type="text/javascript">
+    <script type="text/javascript">
         alert("{{messages[-1]}}");
-      </script>
-      {%endif%}
+    </script>
+    {%endif%}
     {%endwith%}
+    <div class="form">
+        <div class="form-toggle"></div>
+        <div class="form-panel one">
+            <div class="form-header">
+                <h1>Account Login</h1>
+            </div>
+            <div class="form-content">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" name="username" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" name="password" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Log In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
