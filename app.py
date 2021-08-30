@@ -77,6 +77,29 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+@app.route('/changepw', methods=['GET', 'POST'])
+def changepw():
+    # 현재 세션이 존재하는지 확인
+    # FIXME: api가 노출되서 로그인하지 않아도 패스워드 변경이 가능 세션 검사가 제대로 되지 않음. Internel 혹은 flask-login으로 쉽게 가능함
+    if 'username' in session:
+        return redirect(url_for('index'))
+
+    # 패스워드가 일치하는지 확인
+    if request.method == 'POST':
+        current_password = request.form['current_password']
+        new_password = request.form['new_password']
+        cpassword = request.form['cpassword']
+        if current_password == login_data['pw'] and\
+            new_password == cpassword:
+            login_data['pw'] = new_password
+            session['username'] = new_password
+            #return 'login success!'
+            return redirect(url_for('login'))
+        flash('incorrect password!')
+
+    return render_template('changepw.html')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     # 관리자 계정이 만들어졌는지 체크

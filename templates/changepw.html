@@ -1,1 +1,64 @@
-비밀번호 변경 페이지
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/login.css">
+    <title>Document</title>
+</head>
+
+<body>
+    {%with messages = get_flashed_messages()%}
+    {%if messages %}
+    <script type="text/javascript">
+        alert("{{messages[-1]}}");
+    </script>
+    {%endif%}
+    {%endwith%}
+    <div class="form">
+        <div class="form-toggle"></div>
+        <div class="form-panel one">
+            <div class="form-header">
+                <h1>비밀번호 변경</h1>
+            </div>
+            <div class="form-content">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="password">Current Password</label>
+                        <input id="current_password" type="password" name="current_password" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">New Password</label>
+                        <input id="new_password" type="password" name="new_password" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm Password</label>
+                        <input id="cpassword" type="password" name="cpassword" required="required" onkeyup='check();' />
+                    </div>
+                    <span id="passwordconfirm"></span>
+                    <div class="form-group">
+                        <button type="submit">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function check() {
+            var p1 = document.getElementById('password').value;
+            var p2 = document.getElementById('cpassword').value;
+            if (p1 != p2) {
+                document.getElementById('passwordconfirm').style.color = 'red';
+                document.getElementById('passwordconfirm').innerHTML = '비밀번호가 일치하지 않습니다.';
+            } else {
+                document.getElementById('passwordconfirm').style.color = 'green';
+                document.getElementById('passwordconfirm').innerHTML = '비밀번호가 일치합니다.';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
