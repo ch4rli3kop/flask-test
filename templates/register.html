@@ -1,64 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/login.css">
-    <title>Document</title>
-</head>
-
-<body>
-    {%with messages = get_flashed_messages()%}
-    {%if messages %}
-    <script type="text/javascript">
-        alert("{{messages[-1]}}");
-    </script>
-    {%endif%}
-    {%endwith%}
-    <div class="form">
+    <body>
+        {%with messages = get_flashed_messages()%}
+        {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+        {%endif%}
+        {%endwith%}
+        <div class="form">
         <div class="form-toggle"></div>
         <div class="form-panel one">
             <div class="form-header">
-                <h1>Register Account</h1>
+            <h1>Register Account</h1>
             </div>
             <div class="form-content">
-                <form action="" method="POST">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input id="username" type="text" name="username" required="required" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input id="password" type="password" name="password" required="required" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Confirm Password</label>
-                        <input id="cpassword" type="password" name="cpassword" required="required" onkeyup='check();' />
-                    </div>
-                    <span id="passwordconfirm"></span>
-                    <div class="form-group">
-                        <button type="submit">Register</button>
-                    </div>
-                </form>
+            <form>
+                <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required="required"/>
+                </div>
+                <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Confirm Password</label>
+                    <input id="cpassword" type="password" name="cpassword" required="required" onkeyup='check();' />
+                </div>
+                <span id="passwordconfirm"></span>
+                <div class="form-group">
+                <button type="submit">Register</button>
+                </div>
+            </form>
             </div>
         </div>
-    </div>
-    <script type="text/javascript">
-        function check() {
-            var p1 = document.getElementById('password').value;
-            var p2 = document.getElementById('cpassword').value;
-            if (p1 != p2) {
-                document.getElementById('passwordconfirm').style.color = 'red';
-                document.getElementById('passwordconfirm').innerHTML = '비밀번호가 일치하지 않습니다.';
-            } else {
-                document.getElementById('passwordconfirm').style.color = 'green';
-                document.getElementById('passwordconfirm').innerHTML = '비밀번호가 일치합니다.';
+        <script type="text/javascript">
+            function check() {
+                var p1 = document.getElementById('password').value;
+                var p2 = document.getElementById('cpassword').value;
+                if (p1 != p2) {
+                    document.getElementById('passwordconfirm').style.color = 'red';
+                    document.getElementById('passwordconfirm').innerHTML = '비밀번호가 일치하지 않습니다.';
+                } else {
+                    document.getElementById('passwordconfirm').style.color = 'green';
+                    document.getElementById('passwordconfirm').innerHTML = '비밀번호가 일치합니다.';
+                }
             }
-        }
-    </script>
-
-</body>
-
+        </script>
+        <div class="form-panel two">
+            <div class="form-header">
+            <h1>Register Account</h1>
+            </div>
+            <div class="form-content">
+            <form>
+                <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required="required"/>
+                </div>
+                <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required="required"/>
+                </div>
+                <div class="form-group">
+                <label for="cpassword">Confirm Password</label>
+                <input type="password" id="cpassword" name="cpassword" required="required"/>
+                </div>
+                <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required="required"/>
+                </div>
+                <div class="form-group">
+                <button type="submit">Register</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    <div class="pen-footer"><a href="https://www.behance.net/gallery/30478397/Login-Form-UI-Library" target="_blank"><i class="material-icons">arrow_backward</i>View on Behance</a><a href="https://github.com/andyhqtran/UI-Library/tree/master/Login%20Form" target="_blank">View on Github<i class="material-icons">arrow_forward</i></a></div>
+    </body>
 </html>
