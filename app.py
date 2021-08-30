@@ -27,7 +27,6 @@ admin_exist = False
 @app.route('/')
 def index():
 
-    # FIXME: 서버가 종료되어도 session 데이터는 유지되고 있는 반면에, 계정정보는 사라져서 재접속 시 administration 페이지로 넘어가는 버그가 생김
     # 현재 세션 검사
     if 'username' in session:
         return redirect(url_for('administration'))
@@ -65,6 +64,7 @@ def register():
     # 관리자 계정이 만들어졌는지 체크
     if login_data['id'] != '' and login_data['pw'] != '':
         # FIXME: logging 추가
+        #app.logger.debug('')
         return 'admin already exists!'
     
     # 관리자 계정은 하나밖에 만들지 못하기 때문에 입력 검사하기
@@ -83,6 +83,12 @@ def register():
 
 @app.route('/adminstration')
 def administration():
+    # 로그인 검사 추가
+    if 'username' not in session:
+        return redirect(url_for('index'))
+ 
     return render_template('administration.html')
 
-app.run(host='0.0.0.0', port=8000, debug=True)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)
