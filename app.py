@@ -1,9 +1,11 @@
-from flask import Flask, render_template, redirect, request, flash
+from flask import Flask, render_template, redirect, request, flash, session
 from flask.helpers import url_for
 from flask_login import fresh_login_required
+import os
 
 app = Flask(__name__)
 
+app.secret_key = os.urandom(32)
 app.config['SECRET_KEY'] = 'ABCD'
 
 device_states = {
@@ -26,7 +28,8 @@ admin_exist = False
 def index():
 
     # 현재 세션 검사
-
+    if 'username' in session:
+        return redirect(url_for('administration'))
 
     if login_data['id']:
         # 로그인 화면으로 이동
@@ -40,14 +43,21 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if request.form['username'] == login_data['id'] and\
-            request.form['password'] == login_data['pw']:
-            return 'login success!'
+        username = request.form['username']
+        password = request.form['password']
+        if  username == login_data['id'] and\
+            password == login_data['pw']:
+            session['username'] = password
+            #return 'login success!'
+            return redirect(url_for('administration'))
         return 'login failed!'
 
     return render_template('login.html')
 
-@app.route('/')
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -69,5 +79,9 @@ def register():
     #     return 'Register error'
 
     return render_template('register.html')
+
+@app.route('/adminstration')
+def administration():
+    return render_template('administration.html')
 
 app.run(host='0.0.0.0', port=8000, debug=True)
