@@ -5,8 +5,8 @@ import os
 
 app = Flask(__name__)
 
-app.secret_key = os.urandom(32)
-app.config['SECRET_KEY'] = 'ABCD'
+#app.secret_key = os.urandom(32)
+app.config['SECRET_KEY'] = os.urandom(32)
 
 device_states = {
     'temperature':0,
@@ -27,6 +27,7 @@ admin_exist = False
 @app.route('/')
 def index():
 
+    # FIXME: 서버가 종료되어도 session 데이터는 유지되고 있는 반면에, 계정정보는 사라져서 재접속 시 administration 페이지로 넘어가는 버그가 생김
     # 현재 세션 검사
     if 'username' in session:
         return redirect(url_for('administration'))
