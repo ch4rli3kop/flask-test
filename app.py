@@ -1,3 +1,11 @@
+'''
+TODO: administration 페이지에서 계정의 패스워드를 변경하는 기능 추가
+TODO: 장치가 많아질 경우를 대비하여 장치 정보를 이중 형태로 저장해야함
+TODO: 온도 변화 그래프를 보여주기 위해서 
+'''
+
+
+
 from flask import Flask, render_template, redirect, request, flash, session
 from flask.helpers import url_for
 from flask_login import fresh_login_required
@@ -42,6 +50,9 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if login_data['id'] == '':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -50,7 +61,7 @@ def login():
             session['username'] = password
             #return 'login success!'
             return redirect(url_for('administration'))
-        return 'login failed!'
+        flash('login failed!')
 
     return render_template('login.html')
 
